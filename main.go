@@ -8,6 +8,10 @@ import (
 
 func main() {
 	switch os.Args[1] {
+	case "version":
+		cmd.Version()
+	case "help":
+		cmd.Help()
 	case "set":
 		cmd.Set()
 	default:
