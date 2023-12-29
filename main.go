@@ -3,13 +3,14 @@ package main
 import (
 	"os"
 
-	"github.com/p-nerd/x/commands"
+	"github.com/p-nerd/x/cmd"
 )
 
 func main() {
-	if os.Args[1] == "set" {
-		commands.Set()
-		return
+	switch os.Args[1] {
+	case "set":
+		cmd.Set()
+	default:
+		cmd.Root()
 	}
-	commands.Root()
 }
