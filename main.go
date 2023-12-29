@@ -7,6 +7,11 @@ import (
 	"strings"
 )
 
+func devLog(message ...any) {
+	// fmt.Print("[dev] ")
+	// fmt.Println(message...)
+}
+
 func getCurrentWorkingDirPath() (string, error) {
 	currentDir, err := os.Getwd()
 	if err != nil {
@@ -18,18 +23,20 @@ func getCurrentWorkingDirPath() (string, error) {
 
 func filesNameInDir(directoryPath string) ([]string, error) {
 	var files []string
-
+	if directoryPath == "" {
+		return files, nil
+	}
+	devLog("Reading directory: " + directoryPath)
 	entries, err := os.ReadDir(directoryPath)
 	if err != nil {
-		return nil, fmt.Errorf("error reading directory %s: %v", directoryPath, err)
+		fmt.Printf("error reading directory %s: %v\n", directoryPath, err)
+		return nil, err
 	}
-
 	for _, entry := range entries {
 		if !entry.IsDir() {
 			files = append(files, entry.Name())
 		}
 	}
-
 	return files, nil
 }
 
@@ -61,28 +68,20 @@ func printSlice(s []string) {
 	}
 }
 
-func executeScript(scriptPath string, args ...string) {
-	// Check if the file exists
+func executeScript(scriptPath string, args ...string) error {
 	if _, err := os.Stat(scriptPath); os.IsNotExist(err) {
 		fmt.Println("Script file does not exist:", scriptPath)
-		return
+		return err
 	}
-
-	// Create a new exec.Cmd instance with the script path and arguments
 	cmd := exec.Command(scriptPath, args...)
-
-	// Set the command's standard output and error to os.Stdout and os.Stderr
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
-
-	// Run the command
 	err := cmd.Run()
 	if err != nil {
 		fmt.Println("Error executing script:", err)
-		return
+		return err
 	}
-
-	fmt.Println("Script executed successfully.")
+	return nil
 }
 
 func changeDir(newDir string) error {
@@ -90,24 +89,37 @@ func changeDir(newDir string) error {
 	return err
 }
 
+func fatal(err error) {
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+}
+
 func main() {
 	scriptName := "x.sh"
+	scriptArgs := os.Args[1:]
 
-	currentDir, _ := getCurrentWorkingDirPath()
+	currentDir, err := getCurrentWorkingDirPath()
+	devLog("Current working directory is: " + currentDir)
+	fatal(err)
+
 	paths := splitPath(currentDir)
+	devLog("All splitted paths is: ", paths)
 
 	for i := len(paths) - 1; i >= 0; i-- {
 		path := paths[i]
 
-		files, _ := filesNameInDir(path)
-		isExist := isScriptExist(files, scriptName)
+		files, err := filesNameInDir(path)
+		fatal(err)
 
-		if isExist {
+		if isScriptExist(files, scriptName) {
 			changeDir(path)
-			scriptArgs := os.Args[1:]
 			executeScript(path+"/"+scriptName, scriptArgs...)
 			changeDir(currentDir)
 			return
 		}
+		devLog(scriptName, "is not exit in", path)
 	}
+	fmt.Println(scriptName, "is not exit in any directory on the path")
 }
