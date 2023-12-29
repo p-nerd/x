@@ -8,8 +8,8 @@ import (
 )
 
 func devLog(message ...any) {
-	// fmt.Print("[dev] ")
-	// fmt.Println(message...)
+	fmt.Print("[dev] ")
+	fmt.Println(message...)
 }
 
 func getCurrentWorkingDirPath() (string, error) {
@@ -96,9 +96,20 @@ func fatal(err error) {
 	}
 }
 
+func getScriptNameAndArgs() (string, []string) {
+	name := "x.sh"
+	args := os.Args[1:]
+	if args[0] == "-s" {
+		name = args[1]
+		args = args[2:]
+	}
+	return name, args
+}
+
 func main() {
-	scriptName := "x.sh"
-	scriptArgs := os.Args[1:]
+	scriptName, scriptArgs := getScriptNameAndArgs()
+	devLog("script name:", scriptName)
+	devLog("script args:", scriptArgs)
 
 	currentDir, err := getCurrentWorkingDirPath()
 	devLog("Current working directory is: " + currentDir)
