@@ -1,9 +1,29 @@
 package util
 
 import (
+	"fmt"
 	"os"
 	"os/user"
 )
+
+func DevLog(message ...any) {
+	// fmt.Print("[dev] ")
+	// fmt.Println(message...)
+}
+
+func ChangeDir(newDir string) error {
+	err := os.Chdir(newDir)
+	return err
+}
+
+func CurrentWorkingDirPath() (string, error) {
+	currentDir, err := os.Getwd()
+	if err != nil {
+		fmt.Println("Error getting current directory:", err)
+		return "", err
+	}
+	return currentDir, nil
+}
 
 func ReadFile(filePath string) (string, error) {
 	fileContents, err := os.ReadFile(filePath)

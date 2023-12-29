@@ -69,7 +69,6 @@ func write(config Config) error {
 	}
 	exist := util.IsFileExist(xrcpath)
 	if !exist {
-		fmt.Println("here")
 		err = util.CreateFile(xrcpath)
 		if err != nil {
 			return err
