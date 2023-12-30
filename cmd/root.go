@@ -78,7 +78,7 @@ func fatal(err error) {
 func getScriptNameAndArgs() (string, []string) {
 	name, err := xrc.Get(conf.XRC_SCRIPT_NAME)
 	if err != nil {
-		name = "x.sh"
+		name = conf.DEFAULT_SCRIPT
 	}
 	if len(os.Args) <= 1 {
 		return name, []string{}
