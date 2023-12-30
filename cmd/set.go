@@ -8,7 +8,7 @@ import (
 )
 
 func Set() {
-	name := conf.SCRIPT_NAME
+	name := conf.XRC_SCRIPT_NAME
 	value := os.Args[2]
 
 	err := xrc.Set(name, value)

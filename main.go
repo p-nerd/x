@@ -6,15 +6,20 @@ import (
 	"github.com/p-nerd/x/cmd"
 )
 
+var cmds = map[string]func(){
+	"version": cmd.Version,
+	"help":    cmd.Help,
+	"set":     cmd.Set,
+}
+
 func main() {
-	switch os.Args[1] {
-	case "version":
-		cmd.Version()
-	case "help":
-		cmd.Help()
-	case "set":
-		cmd.Set()
-	default:
+	if len(os.Args) == 1 {
+		cmd.Root()
+		return
+	}
+	if cmdFunc, ok := cmds[os.Args[1]]; ok {
+		cmdFunc()
+	} else {
 		cmd.Root()
 	}
 }

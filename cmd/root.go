@@ -76,16 +76,22 @@ func fatal(err error) {
 }
 
 func getScriptNameAndArgs() (string, []string) {
-	name, err := xrc.Get(conf.SCRIPT_NAME)
+	name, err := xrc.Get(conf.XRC_SCRIPT_NAME)
 	if err != nil {
 		name = "x.sh"
 	}
-	args := os.Args[1:]
-	if args[0] == "-s" {
-		name = args[1]
-		args = args[2:]
+	if len(os.Args) <= 1 {
+		return name, []string{}
 	}
-	return name, args
+	if os.Args[1] == "-s" {
+		name = os.Args[2]
+		args := []string{}
+		if len(os.Args) >= 4 {
+			args = os.Args[3:]
+		}
+		return name, args
+	}
+	return name, os.Args[1:]
 }
 
 func Root() {
