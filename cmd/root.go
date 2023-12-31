@@ -3,7 +3,6 @@ package cmd
 import (
 	"fmt"
 	"os"
-	"os/exec"
 	"strings"
 
 	"github.com/p-nerd/x/conf"
@@ -52,22 +51,6 @@ func splitPath(path string) []string {
 	return paths
 }
 
-func executeScript(scriptPath string, args ...string) error {
-	if _, err := os.Stat(scriptPath); os.IsNotExist(err) {
-		fmt.Println("Script file does not exist:", scriptPath)
-		return err
-	}
-	cmd := exec.Command(scriptPath, args...)
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	err := cmd.Run()
-	if err != nil {
-		fmt.Println("Error executing script:", err)
-		return err
-	}
-	return nil
-}
-
 func fatal(err error) {
 	if err != nil {
 		fmt.Println(err)
@@ -114,7 +97,7 @@ func Root() {
 
 		if isScriptExist(files, scriptName) {
 			util.ChangeDir(path)
-			executeScript(path+"/"+scriptName, scriptArgs...)
+			util.Execute(path+"/"+scriptName, scriptArgs...)
 			util.ChangeDir(currentDir)
 			return
 		}

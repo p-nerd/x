@@ -10,6 +10,7 @@ var cmds = map[string]func(){
 	"version": cmd.Version,
 	"help":    cmd.Help,
 	"set":     cmd.Set,
+	"up":      cmd.Up,
 }
 
 func main() {

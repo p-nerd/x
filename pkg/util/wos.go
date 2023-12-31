@@ -3,13 +3,9 @@ package util
 import (
 	"fmt"
 	"os"
+	"os/exec"
 	"os/user"
 )
-
-func DevLog(message ...any) {
-	// fmt.Print("[dev] ")
-	// fmt.Println(message...)
-}
 
 func ChangeDir(newDir string) error {
 	err := os.Chdir(newDir)
@@ -61,4 +57,16 @@ func UserHomeDir() (string, error) {
 		return "", err
 	}
 	return currentUser.HomeDir, nil
+}
+
+func Execute(scriptPathOrCommand string, args ...string) error {
+	cmd := exec.Command(scriptPathOrCommand, args...)
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	err := cmd.Run()
+	if err != nil {
+		fmt.Println("Error executing:", err)
+		return err
+	}
+	return nil
 }
