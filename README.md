@@ -28,3 +28,9 @@ x set <script name> # change the default script name.
 ```sh
 x up # run 'docker compose up' command on working path`
 ```
+
+-   version
+
+```sh
+x version # shows tool version number`
+```

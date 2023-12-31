@@ -1,7 +1,11 @@
 package cmd
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/p-nerd/x/conf"
+)
 
 func Version() {
-	fmt.Println(`x version 1.0.0`)
+	fmt.Println("x version", conf.VERSION)
 }
