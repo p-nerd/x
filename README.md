@@ -26,5 +26,5 @@ x set <script name> # change the default script name.
 -   up
 
 ```sh
-x up                          run 'docker compose up' command on working path`
+x up # run 'docker compose up' command on working path`
 ```
