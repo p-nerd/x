@@ -9,6 +9,7 @@ import (
 var cmds = map[string]func(){
 	"version": cmd.Version,
 	"help":    cmd.Help,
+	"--help":  cmd.Help,
 	"set":     cmd.Set,
 	"up":      cmd.Up,
 }

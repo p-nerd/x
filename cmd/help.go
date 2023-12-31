@@ -1,16 +1,23 @@
 package cmd
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/p-nerd/x/conf"
+)
 
 func Help() {
-	help := `Execute any script from anywhere on the path
+	help := conf.NAME + `
+
+Execute any script from anywhere on the path
 
 COMMANDS
-  x <...args>                   run the default script (default script is x.sh)
-  x -s <script name> <...args>  run the specified script
-  x set <script name>           change default script name
-  x up                          run 'docker compose up' command on working path
-  x version                     shows tool version number`
+  <...args>                   run the default script (default script: x.sh).
+  -s <script name> <...args>  run the specified script.
+  set <script name>           change the default script.
+  up                          run the 'docker compose up' command in the current working path.
+  help                        display this help information (also supports '--help').
+  version                     show the version number of the tool.`
 
 	fmt.Println(help)
 }
