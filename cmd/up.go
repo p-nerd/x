@@ -1,9 +1,9 @@
 package cmd
 
 import (
-	"github.com/p-nerd/x/pkg/util"
+	"github.com/p-nerd/x/pkg/wos"
 )
 
 func Up() {
-	util.ExecuteWithExitError("docker", "compose", "up")
+	wos.ExecuteWithExitError("docker", "compose", "up")
 }

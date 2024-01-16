@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/p-nerd/x/pkg/util"
+	"github.com/p-nerd/x/pkg/wos"
 )
 
 type Config map[string]string
@@ -42,7 +42,7 @@ func stringfy(config Config) string {
 }
 
 func xrcFilepath() (string, error) {
-	homeDir, err := util.UserHomeDir()
+	homeDir, err := wos.UserHomeDir()
 	if err != nil {
 		return "", err
 	}
@@ -55,7 +55,7 @@ func read() (Config, error) {
 	if err != nil {
 		return nil, err
 	}
-	content, err := util.ReadFile(xrcpath)
+	content, err := wos.ReadFile(xrcpath)
 	if err != nil {
 		return nil, err
 	}
@@ -67,15 +67,15 @@ func write(config Config) error {
 	if err != nil {
 		return err
 	}
-	exist := util.IsFileExist(xrcpath)
+	exist := wos.IsFileExist(xrcpath)
 	if !exist {
-		err = util.CreateFile(xrcpath)
+		err = wos.CreateFile(xrcpath)
 		if err != nil {
 			return err
 		}
 	}
 	s := stringfy(config)
-	err = util.WriteFile(xrcpath, s)
+	err = wos.WriteFile(xrcpath, s)
 	return err
 }
 

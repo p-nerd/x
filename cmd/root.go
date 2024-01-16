@@ -6,7 +6,8 @@ import (
 	"strings"
 
 	"github.com/p-nerd/x/conf"
-	"github.com/p-nerd/x/pkg/util"
+	"github.com/p-nerd/x/pkg/log"
+	"github.com/p-nerd/x/pkg/wos"
 	"github.com/p-nerd/x/pkg/xrc"
 )
 
@@ -15,7 +16,7 @@ func filesNameInDir(directoryPath string) ([]string, error) {
 	if directoryPath == "" {
 		return files, nil
 	}
-	util.DevLog("Reading directory: " + directoryPath)
+	log.DevLog("Reading directory: " + directoryPath)
 	entries, err := os.ReadDir(directoryPath)
 	if err != nil {
 		fmt.Printf("error reading directory %s: %v\n", directoryPath, err)
@@ -79,15 +80,15 @@ func getScriptNameAndArgs() (string, []string) {
 
 func Root() {
 	scriptName, scriptArgs := getScriptNameAndArgs()
-	util.DevLog("script name:", scriptName)
-	util.DevLog("script args:", scriptArgs)
+	log.DevLog("script name:", scriptName)
+	log.DevLog("script args:", scriptArgs)
 
-	currentDir, err := util.CurrentWorkingDirPath()
-	util.DevLog("Current working directory is: " + currentDir)
+	currentDir, err := wos.CurrentWorkingDirPath()
+	log.DevLog("Current working directory is: " + currentDir)
 	fatal(err)
 
 	paths := splitPath(currentDir)
-	util.DevLog("All splitted paths is: ", paths)
+	log.DevLog("All splitted paths is: ", paths)
 
 	for i := len(paths) - 1; i >= 0; i-- {
 		path := paths[i]
@@ -96,15 +97,15 @@ func Root() {
 		fatal(err)
 
 		if isScriptExist(files, scriptName) {
-			util.ChangeDir(path)
-			err := util.Execute(path+"/"+scriptName, scriptArgs...)
-			util.ChangeDir(currentDir)
+			wos.ChangeDir(path)
+			err := wos.Execute(path+"/"+scriptName, scriptArgs...)
+			wos.ChangeDir(currentDir)
 			if err != nil {
 				os.Exit(1)
 			}
 			return
 		}
-		util.DevLog(scriptName, "is not exit in", path)
+		log.DevLog(scriptName, "is not exit in", path)
 	}
 	fmt.Println(scriptName, "is not exit in any directory on the path")
 }

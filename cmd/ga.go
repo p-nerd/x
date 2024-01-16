@@ -3,15 +3,15 @@ package cmd
 import (
 	"os"
 
-	"github.com/p-nerd/x/pkg/util"
+	"github.com/p-nerd/x/pkg/wos"
 )
 
 func GA() {
-	util.ExecuteWithExitError("git", "add", "-A")
+	wos.ExecuteWithExitError("git", "add", "-A")
 	msg := "update"
 	if os.Args[2] != "" {
 		msg = os.Args[2]
 	}
-	util.ExecuteWithExitError("git", "commit", "-m", msg)
-	util.ExecuteWithExitError("git", "push")
+	wos.ExecuteWithExitError("git", "commit", "-m", msg)
+	wos.ExecuteWithExitError("git", "push")
 }
