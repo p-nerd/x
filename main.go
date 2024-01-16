@@ -10,8 +10,10 @@ var cmds = map[string]func(){
 	"version": cmd.Version,
 	"help":    cmd.Help,
 	"--help":  cmd.Help,
+	"-h":      cmd.Help,
 	"set":     cmd.Set,
 	"up":      cmd.Up,
+	"git-all": cmd.GA,
 	"ga":      cmd.GA,
 }
 
