@@ -8,29 +8,14 @@ Execute any script from anywhere on the path
 go install github.com/p-nerd/x@latest
 ```
 
-## Commends
+## Commands
 
--   Root
-
-```sh
-x # it will run x.sh script, we can put argument that will be pass to the x.sh script (like this: x zip)
-x -s <script name> # we can specify script with -s flag. it will run specified script. we also can put args (like this: x -s f.sh zip)
 ```
-
--   set
-
-```sh
-x set <script name> # change the default script name.
-```
-
--   up
-
-```sh
-x up # run 'docker compose up' command on working path`
-```
-
--   version
-
-```sh
-x version # shows tool version number`
+<...args>                   run the default script (default script: x.sh).
+-s <script name> <...args>  run the specified script.
+set <script name>           change the default script.
+up                          run the 'docker compose up' command in the current working path.
+ga | git-all                run the 'git add -A; git commit -m <args>; git push' in on command
+help | --help | -h          display this help information (also supports '--help').
+version                     show the version number of the tool.
 ```
