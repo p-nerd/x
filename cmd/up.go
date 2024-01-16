@@ -1,7 +1,9 @@
 package cmd
 
-import "github.com/p-nerd/x/pkg/util"
+import (
+	"github.com/p-nerd/x/pkg/util"
+)
 
 func Up() {
-	util.Execute("docker", "compose", "up")
+	util.ExecuteWithExitError("docker", "compose", "up")
 }

@@ -12,6 +12,7 @@ var cmds = map[string]func(){
 	"--help":  cmd.Help,
 	"set":     cmd.Set,
 	"up":      cmd.Up,
+	"ga":      cmd.GA,
 }
 
 func main() {

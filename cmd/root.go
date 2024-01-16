@@ -97,8 +97,11 @@ func Root() {
 
 		if isScriptExist(files, scriptName) {
 			util.ChangeDir(path)
-			util.Execute(path+"/"+scriptName, scriptArgs...)
+			err := util.Execute(path+"/"+scriptName, scriptArgs...)
 			util.ChangeDir(currentDir)
+			if err != nil {
+				os.Exit(1)
+			}
 			return
 		}
 		util.DevLog(scriptName, "is not exit in", path)

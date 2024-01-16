@@ -5,6 +5,9 @@ import (
 	"os"
 	"os/exec"
 	"os/user"
+	"strings"
+
+	"github.com/p-nerd/x/pkg/log"
 )
 
 func ChangeDir(newDir string) error {
@@ -60,6 +63,8 @@ func UserHomeDir() (string, error) {
 }
 
 func Execute(scriptPathOrCommand string, args ...string) error {
+	log.Green("$ ")
+	log.Yellow(scriptPathOrCommand, " ", strings.Join(args, " "), "\n")
 	cmd := exec.Command(scriptPathOrCommand, args...)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
@@ -69,4 +74,11 @@ func Execute(scriptPathOrCommand string, args ...string) error {
 		return err
 	}
 	return nil
+}
+
+func ExecuteWithExitError(scriptPathOrCommand string, args ...string) {
+	err := Execute(scriptPathOrCommand, args...)
+	if err != nil {
+		os.Exit(1)
+	}
 }
