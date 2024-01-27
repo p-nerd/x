@@ -15,6 +15,7 @@ var cmds = map[string]func(){
 	"up":      cmd.Up,
 	"git-all": cmd.GA,
 	"ga":      cmd.GA,
+	"tree":    cmd.Tree,
 }
 
 func main() {
