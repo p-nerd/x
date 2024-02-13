@@ -6,7 +6,7 @@ import (
 	"github.com/p-nerd/x/pkg/wos"
 )
 
-func GA() {
+func Push() {
 	wos.ExecuteWithExitError("git", "add", "-A")
 	msg := "update"
 	if os.Args[2] != "" {
