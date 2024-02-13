@@ -8,8 +8,8 @@ import (
 
 func Push() {
 	wos.ExecuteWithExitError("git", "add", "-A")
-	msg := "update"
-	if os.Args[2] != "" {
+	msg := "update mics"
+	if len(os.Args) >= 3 && os.Args[2] != "" {
 		msg = os.Args[2]
 	}
 	wos.ExecuteWithExitError("git", "commit", "-m", msg)
