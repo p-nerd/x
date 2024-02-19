@@ -15,6 +15,7 @@ var cmds = map[string]func(){
 	"up":      cmd.Up,
 	"git-all": cmd.Push,
 	"push":    cmd.Push,
+	"commit":  cmd.Commit,
 	"tree":    cmd.Tree,
 }
 
