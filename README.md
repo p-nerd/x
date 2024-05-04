@@ -1,6 +1,6 @@
 # x
 
-Execute any script from anywhere on the path
+This is a command line to automate my software development workflow
 
 ## Install `x` with go
 
