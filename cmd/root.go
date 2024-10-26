@@ -98,7 +98,12 @@ func Root() {
 
 		if isScriptExist(files, scriptName) {
 			wos.ChangeDir(path)
-			err := wos.Execute(path+"/"+scriptName, scriptArgs...)
+			scriptNameWithPath := path + "/" + scriptName
+			err := wos.ExecutablePermission(scriptNameWithPath)
+			if err != nil {
+				log.Yellow("Failed to give executable permission", err)
+			}
+			err = wos.Execute(scriptNameWithPath, scriptArgs...)
 			wos.ChangeDir(currentDir)
 			if err != nil {
 				os.Exit(1)

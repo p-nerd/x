@@ -62,6 +62,24 @@ func UserHomeDir() (string, error) {
 	return currentUser.HomeDir, nil
 }
 
+func ExecutablePermission(scriptPathOrCommand string) error {
+	// Get file info
+	fileInfo, err := os.Stat(scriptPathOrCommand)
+	if err != nil {
+		return err
+	}
+
+	// Check if file has executable permission
+	if fileInfo.Mode()&0111 == 0 {
+		// Add executable permission
+		err = os.Chmod(scriptPathOrCommand, fileInfo.Mode()|0111)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 func Execute(scriptPathOrCommand string, args ...string) error {
 	log.Green("$ ")
 	log.Yellow(scriptPathOrCommand, " ", strings.Join(args, " "), "\n")
