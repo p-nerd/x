@@ -31,13 +31,13 @@ import (
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "x",
-	Short: "A brief description of your application",
-	Long: `A longer description that spans multiple lines and likely contains
-examples and usage of using your application. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "Streamline developer workflows from any directory",
+	//	Long: `A CLI tool that lets you run shell scripts from any
+	//
+	// project subdirectory, eliminating tedious path management
+	// and directory switching. Also execute commonly used command
+	// sequences and automation scripts with a single command,
+	// saving time on repetitive development tasks.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },
