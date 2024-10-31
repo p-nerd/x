@@ -12,7 +12,7 @@ import (
 
 var runCmd = &cobra.Command{
 	Use:   "run",
-	Short: "A brief description of your command",
+	Short: "Run the script from any ware down path",
 	Run: func(cmd *cobra.Command, args []string) {
 		body("x.sh", args)
 	},
